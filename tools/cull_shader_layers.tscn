@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://j08qg0d7pev4"]
+
+[ext_resource type="Script" path="res://tools/cull_shader_layers.gd" id="1_ncb8r"]
+
+[node name="cull_shader_layers" type="Node"]
+script = ExtResource("1_ncb8r")

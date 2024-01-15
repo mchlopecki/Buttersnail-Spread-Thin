@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://sfw8hlpr8fh7"]
+
+[ext_resource type="Script" path="res://effects/butter_container.gd" id="1_iqkbr"]
+
+[node name="ButterContainer" type="Node3D" groups=["butter_container"]]
+script = ExtResource("1_iqkbr")
+
+[node name="ActiveButter" type="Area3D" parent="." groups=["active_butter"]]
+collision_layer = 4
+collision_mask = 2
+
+[node name="FreshButter" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[connection signal="body_exited" from="FreshButter" to="." method="_on_fresh_butter_body_exited"]

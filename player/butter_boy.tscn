@@ -1,0 +1,64 @@
+[gd_scene load_steps=11 format=3 uid="uid://dq3pa7qcycexw"]
+
+[ext_resource type="Script" path="res://player/butter_boy.gd" id="1_hk4sl"]
+
+[sub_resource type="Curve" id="Curve_yuh8c"]
+_data = [Vector2(0, 0.3), 0.0, 0.50505, 0, 0, Vector2(0.75, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_04byh"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.119, 0.2), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_jl1lx"]
+_data = [Vector2(0, 0.747368), 0.0, 0.0, 0, 0, Vector2(1, 0.252632), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_ur3b0"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.05, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fo473"]
+albedo_color = Color(1, 1, 0.0352941, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xkk7w"]
+material = SubResource("StandardMaterial3D_fo473")
+size = Vector3(0.2, 0.5, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ra8pm"]
+shading_mode = 0
+disable_ambient_light = true
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4vgu5"]
+material = SubResource("StandardMaterial3D_ra8pm")
+size = Vector3(0.2, 0.5, 0.2)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m0by0"]
+radius = 0.1
+height = 0.5
+
+[node name="ButterBoy" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.260455, 0)
+collision_layer = 2
+collision_mask = 7
+collision_priority = 2.0
+floor_stop_on_slope = false
+script = ExtResource("1_hk4sl")
+accel = 6
+deaccel = 4
+slip_accel_curve = SubResource("Curve_yuh8c")
+slip_deaccel_curve = SubResource("Curve_04byh")
+accel_curve = SubResource("Curve_jl1lx")
+deaccel_curve = SubResource("Curve_ur3b0")
+
+[node name="ButterModel" type="MeshInstance3D" parent="."]
+layers = 4
+mesh = SubResource("BoxMesh_xkk7w")
+
+[node name="ButterModel2" type="MeshInstance3D" parent="."]
+layers = 4096
+mesh = SubResource("BoxMesh_4vgu5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_m0by0")
