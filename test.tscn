@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://b3qgs12iufcrf"]
 
-[ext_resource type="PackedScene" uid="uid://c4osj3rdat84i" path="res://primitives/simple_box.tscn" id="1_p8hff"]
 [ext_resource type="Script" path="res://test.gd" id="1_r3cf1"]
 [ext_resource type="PackedScene" uid="uid://dq3pa7qcycexw" path="res://player/butter_boy.tscn" id="2_efitw"]
+[ext_resource type="PackedScene" uid="uid://baofvdgs0l1xm" path="res://primitives/simple_box_local.tscn" id="2_s64e2"]
 [ext_resource type="Shader" path="res://post_processing/butter_shader.gdshader" id="4_bm5et"]
 [ext_resource type="Script" path="res://post_processing/ButterShaderCam.gd" id="5_ndbk4"]
 
@@ -33,13 +33,13 @@ shader_parameter/screen_texture = SubResource("ViewportTexture_db12g")
 script = ExtResource("1_r3cf1")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, -2.38419e-07, 2.61434, -1.86977)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_xivst")
 
-[node name="Box" parent="." instance=ExtResource("1_p8hff")]
+[node name="Box" parent="." instance=ExtResource("2_s64e2")]
 
 [node name="ButterBoy" parent="." instance=ExtResource("2_efitw")]
 deaccel = 8

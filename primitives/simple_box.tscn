@@ -1,13 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4osj3rdat84i"]
+[gd_scene load_steps=2 format=3 uid="uid://c4osj3rdat84i"]
 
 [ext_resource type="PackedScene" uid="uid://c71euj4lkq3jo" path="res://primitives/world_plane.tscn" id="1_rgi7m"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hss0c"]
 
 [node name="Box" type="Node3D"]
 
 [node name="Floor" parent="." instance=ExtResource("1_rgi7m")]
-physics_material_override = SubResource("PhysicsMaterial_hss0c")
 
 [node name="NWall" parent="." instance=ExtResource("1_rgi7m")]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 2.5, 2.5, 0)

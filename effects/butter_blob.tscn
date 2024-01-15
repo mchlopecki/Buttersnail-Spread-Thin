@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3 uid="uid://l1fkpj8bqoug"]
+[gd_scene load_steps=3 format=3 uid="uid://l1fkpj8bqoug"]
 
-[ext_resource type="Texture2D" uid="uid://bj4sj10makeqk" path="res://assets/butter_trail/butter_circle.png" id="1_r3ymy"]
 [ext_resource type="Texture2D" uid="uid://c6dkfvs6y15o5" path="res://assets/butter_trail/butter_shader_circle.png" id="2_73wea"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0if18"]
@@ -10,13 +9,8 @@ radius = 0.075
 [node name="ButterBlob" type="CollisionShape3D"]
 shape = SubResource("SphereShape3D_0if18")
 
-[node name="VisibleButter" type="Decal" parent="."]
-layers = 8
-size = Vector3(0.3, 0.3, 0.3)
-texture_albedo = ExtResource("1_r3ymy")
-cull_mask = 1
-
 [node name="ShaderButter" type="Decal" parent="."]
+visible = false
 layers = 2048
 size = Vector3(0.3, 0.3, 0.3)
 texture_albedo = ExtResource("2_73wea")

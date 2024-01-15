@@ -131,4 +131,5 @@ func create_spill(collision):
         obj_butter_overlap[butter_container.fresh_butter] = butter_container
         blob.position = col_pos
         butter_container.fresh_butter.add_child(blob)
+        butter_container.add_new_blob(blob)
         
