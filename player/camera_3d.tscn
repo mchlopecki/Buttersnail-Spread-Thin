@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg0ttpm037i8q"]
+
+[ext_resource type="Script" path="res://post_processing/ButterShaderCam.gd" id="1_ncggp"]
+
+[node name="Camera3D" type="Camera3D"]
+transform = Transform3D(-0.996195, 0.066765, -0.0560226, 0, 0.642788, 0.766044, 0.0871556, 0.763129, -0.640342, 0, 3, -3)
+cull_mask = 1045485
+current = true
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+
+[node name="ButterShaderCam" type="Camera3D" parent="SubViewport"]
+process_mode = 1
+transform = Transform3D(-0.996195, 0.066765, -0.0560226, 0, 0.642788, 0.766044, 0.0871556, 0.763129, -0.640342, 0, 3, -3)
+top_level = true
+cull_mask = 7168
+script = ExtResource("1_ncggp")

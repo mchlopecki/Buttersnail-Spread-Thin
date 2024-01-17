@@ -4,7 +4,7 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0if18"]
 margin = 0.004
-radius = 0.075
+radius = 0.3
 
 [node name="ButterBlob" type="CollisionShape3D"]
 shape = SubResource("SphereShape3D_0if18")
@@ -12,6 +12,6 @@ shape = SubResource("SphereShape3D_0if18")
 [node name="ShaderButter" type="Decal" parent="."]
 visible = false
 layers = 2048
-size = Vector3(0.3, 0.3, 0.3)
+size = Vector3(0.9, 0.3, 0.9)
 texture_albedo = ExtResource("2_73wea")
 cull_mask = 1024

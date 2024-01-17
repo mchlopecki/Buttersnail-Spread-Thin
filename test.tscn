@@ -1,10 +1,10 @@
 [gd_scene load_steps=11 format=3 uid="uid://b3qgs12iufcrf"]
 
+[ext_resource type="PackedScene" uid="uid://c4osj3rdat84i" path="res://primitives/simple_box.tscn" id="1_p8hff"]
 [ext_resource type="Script" path="res://test.gd" id="1_r3cf1"]
 [ext_resource type="PackedScene" uid="uid://dq3pa7qcycexw" path="res://player/butter_boy.tscn" id="2_efitw"]
-[ext_resource type="PackedScene" uid="uid://baofvdgs0l1xm" path="res://primitives/simple_box_local.tscn" id="2_s64e2"]
 [ext_resource type="Shader" path="res://post_processing/butter_shader.gdshader" id="4_bm5et"]
-[ext_resource type="Script" path="res://post_processing/ButterShaderCam.gd" id="5_ndbk4"]
+[ext_resource type="PackedScene" uid="uid://cg0ttpm037i8q" path="res://player/camera_3d.tscn" id="4_v44q5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3b33d"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -39,27 +39,12 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_xivst")
 
-[node name="Box" parent="." instance=ExtResource("2_s64e2")]
+[node name="Box" parent="." instance=ExtResource("1_p8hff")]
 
 [node name="ButterBoy" parent="." instance=ExtResource("2_efitw")]
 deaccel = 8
 
-[node name="Camera3D" type="Camera3D" parent="ButterBoy"]
-transform = Transform3D(-0.996195, 0.066765, -0.0560226, 0, 0.642788, 0.766044, 0.0871556, 0.763129, -0.640342, 0, 1.5, -1.5)
-cull_mask = 1045485
-current = true
-
-[node name="SubViewport" type="SubViewport" parent="ButterBoy/Camera3D"]
-transparent_bg = true
-handle_input_locally = false
-size = Vector2i(1152, 648)
-
-[node name="ButterShaderCam" type="Camera3D" parent="ButterBoy/Camera3D/SubViewport"]
-process_mode = 1
-transform = Transform3D(-0.996195, 0.066765, -0.0560226, 0, 0.642788, 0.766044, 0.0871556, 0.763129, -0.640342, 0, 1.76046, -1.5)
-top_level = true
-cull_mask = 7168
-script = ExtResource("5_ndbk4")
+[node name="Camera3D" parent="ButterBoy" instance=ExtResource("4_v44q5")]
 
 [node name="ButterProcess" type="CanvasLayer" parent="."]
 visible = false

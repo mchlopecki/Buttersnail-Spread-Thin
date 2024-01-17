@@ -1,25 +1,23 @@
-[gd_scene load_steps=24 format=3 uid="uid://dq3pa7qcycexw"]
+[gd_scene load_steps=26 format=3 uid="uid://cmkfi1tveftlt"]
 
-[ext_resource type="Script" path="res://player/butter_boy.gd" id="1_hk4sl"]
-[ext_resource type="Texture2D" uid="uid://dq68n8j8xp3ud" path="res://assets/shadow_decal/shadow_stylized.png" id="2_11p74"]
-[ext_resource type="Texture2D" uid="uid://dew35sqwgf5rc" path="res://assets/butter_trail/player_butter_shadow.png" id="3_c8j20"]
-[ext_resource type="Texture2D" uid="uid://cduucf1scqsry" path="res://assets/snail/butter_snail.png" id="3_wk1ki"]
+[ext_resource type="Script" path="res://player/butter_snail.gd" id="1_bhxdc"]
+[ext_resource type="Texture2D" uid="uid://dq68n8j8xp3ud" path="res://assets/shadow_decal/shadow_stylized.png" id="2_s0re0"]
+[ext_resource type="Curve" uid="uid://cfarg5khcxmcl" path="res://player/accel_curves/slip_accel.tres" id="2_x5la1"]
+[ext_resource type="Texture2D" uid="uid://dew35sqwgf5rc" path="res://assets/butter_trail/player_butter_shadow.png" id="3_bx8ef"]
+[ext_resource type="Texture2D" uid="uid://cduucf1scqsry" path="res://assets/snail/butter_snail.png" id="4_bddgs"]
+[ext_resource type="Curve" uid="uid://x7j7ehd7oegp" path="res://player/accel_curves/accel.tres" id="4_f4t0a"]
+[ext_resource type="PackedScene" uid="uid://cg0ttpm037i8q" path="res://player/camera_3d.tscn" id="7_1aay6"]
 
-[sub_resource type="Curve" id="Curve_yuh8c"]
-_data = [Vector2(0, 0.3), 0.0, 0.50505, 0, 0, Vector2(0.75, 1), 0.0, 0.0, 0, 0]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3hgyu"]
+absorbent = true
+
+[sub_resource type="Curve" id="Curve_1ayuy"]
+_data = [Vector2(0, 0.5), 0.0, -1.0, 0, 0, Vector2(1, 0.147368), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="Curve" id="Curve_04byh"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.119, 0.2), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_tcicd"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.852632), 0.0, 0.0, 0, 0]
 point_count = 2
-
-[sub_resource type="Curve" id="Curve_jl1lx"]
-_data = [Vector2(0, 0.747368), 0.0, 0.0, 0, 0, Vector2(1, 0.252632), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_ur3b0"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.05, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 3
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m0by0"]
 height = 1.0
@@ -166,54 +164,69 @@ nodes/up_down/node = SubResource("AnimationNodeBlendSpace1D_7e6p6")
 nodes/up_down/position = Vector2(-160, 220)
 node_connections = [&"output", 0, &"combine_anims", &"combine_anims", 0, &"left_right", &"combine_anims", 1, &"up_down"]
 
-[node name="ButterBoy" type="CharacterBody3D"]
+[node name="ButterSnail" type="RigidBody3D"]
 collision_layer = 2
-collision_mask = 7
+collision_mask = 5
 collision_priority = 2.0
-floor_constant_speed = true
-script = ExtResource("1_hk4sl")
-accel = 6
-deaccel = 4
-slip_accel_curve = SubResource("Curve_yuh8c")
-slip_deaccel_curve = SubResource("Curve_04byh")
-accel_curve = SubResource("Curve_jl1lx")
-deaccel_curve = SubResource("Curve_ur3b0")
+mass = 2.0
+physics_material_override = SubResource("PhysicsMaterial_3hgyu")
+max_contacts_reported = 32
+contact_monitor = true
+can_sleep = false
+angular_damp = 4.0
+script = ExtResource("1_bhxdc")
+accel = 36
+max_speed = 10
+slip_accel_curve = ExtResource("2_x5la1")
+accel_curve = ExtResource("4_f4t0a")
+slip_friction_curve = SubResource("Curve_1ayuy")
+friction_curve = SubResource("Curve_tcicd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_m0by0")
 
-[node name="Shadow" type="Decal" parent="."]
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="."]
+remote_path = NodePath("../Node3D")
+update_rotation = false
+
+[node name="Node3D" type="Node3D" parent="."]
+top_level = true
+
+[node name="Shadow" type="Decal" parent="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 size = Vector3(1, 0.3, 1)
-texture_albedo = ExtResource("2_11p74")
+texture_albedo = ExtResource("2_s0re0")
 cull_mask = 1041385
 
-[node name="Butter" type="Decal" parent="."]
+[node name="Butter" type="Decal" parent="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 layers = 8
 sorting_offset = -1.0
 size = Vector3(0.9, 0.3, 0.9)
-texture_albedo = ExtResource("3_c8j20")
+texture_albedo = ExtResource("3_bx8ef")
 cull_mask = 1041377
 
-[node name="SnailSprite" type="Sprite3D" parent="."]
+[node name="SnailSprite" type="Sprite3D" parent="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.118715, 0)
 layers = 4
 pixel_size = 0.0075
 shaded = true
 texture_filter = 0
-texture = ExtResource("3_wk1ki")
+texture = ExtResource("4_bddgs")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node3D"]
 root_node = NodePath("../SnailSprite")
 libraries = {
 "": SubResource("AnimationLibrary_irpxu")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
+[node name="AnimationTree" type="AnimationTree" parent="Node3D"]
 tree_root = SubResource("AnimationNodeBlendTree_5opau")
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/combine_anims/add_amount = 1.0
 parameters/left_right/blend_position = 0.0
 parameters/up_down/blend_position = 0.0
+
+[node name="Camera3D" parent="Node3D" instance=ExtResource("7_1aay6")]
+transform = Transform3D(-0.996195, 0.066765, -0.0560226, 0, 0.642788, 0.766044, 0.0871556, 0.763129, -0.640342, 0, 4, -4)

@@ -1,7 +1,7 @@
 extends Node
 
 @onready var button = $Button
-var main_game = preload("res://test.tscn")
+var main_game = preload("res://levels/town_demo.tscn")
 
 func _ready():
 	button.pressed.connect(start_game)

@@ -26,7 +26,8 @@ var last_cols = []
 var butter_idx := 0
 
 @onready var col_shape = $CollisionShape3D
-@onready var but_model = $ButterModel
+@onready var anim_tree = $AnimationTree
+# @onready var but_model = $ButterModel
 
 @onready var cur_accel_curve = accel_curve
 @onready var cur_deaccel_curve = deaccel_curve
@@ -42,13 +43,7 @@ func _on_butter_spill_exited(_area, butter_area, _butter_container):
     obj_butter_overlap.erase(butter_area)
 
 func _physics_process(delta):
-    move_and_slide()
-    deaccelerate(delta)
-
-    last_cols = []
-    var num_silde_collisions = get_slide_collision_count()
-    for collision_i in num_silde_collisions:
-        last_cols.append(get_slide_collision(collision_i))
+    pass
 
 func _process(delta):
     check_butter()
@@ -61,6 +56,14 @@ func _process(delta):
         cur_deaccel_curve = deaccel_curve
 
     handle_input(delta)
+    move_and_slide()
+    deaccelerate(delta)
+    anim_tree["parameters/up_down/blend_position"] = velocity.z / speed
+    
+    last_cols = []
+    var num_silde_collisions = get_slide_collision_count()
+    for collision_i in num_silde_collisions:
+        last_cols.append(get_slide_collision(collision_i))
 
 func normalize_move_speed(move_speed, move_max):
     return clamp(move_speed / move_max, 0, 1)
@@ -95,12 +98,16 @@ func handle_input(delta):
         velocity += delta * (get_accel(velocity.x, speed) * Vector3.MODEL_LEFT)
         velocity.x = min(velocity.x, speed)
         input_mask = input_mask || INPUTS.LEFT
+        anim_tree["parameters/left_right/blend_position"] = -1.0
+        anim_tree["parameters/combine_anims/add_amount"] = 1.0
     if Input.is_action_pressed("right"):
         velocity += delta * (get_accel(-velocity.x, speed) * Vector3.MODEL_RIGHT)
         velocity.x = max(velocity.x, -speed)
         input_mask = input_mask || INPUTS.RIGHT
-        
-    velocity.y = gravity
+        anim_tree["parameters/left_right/blend_position"] = 1.0
+        anim_tree["parameters/combine_anims/add_amount"] = -1.0
+
+    velocity.y += gravity
 
 func check_butter():
     sliding_on_butter = false
