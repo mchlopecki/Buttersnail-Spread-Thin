@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cmkfi1tveftlt"]
+[gd_scene load_steps=27 format=3 uid="uid://cmkfi1tveftlt"]
 
 [ext_resource type="Script" path="res://player/butter_snail.gd" id="1_bhxdc"]
 [ext_resource type="Texture2D" uid="uid://dq68n8j8xp3ud" path="res://assets/shadow_decal/shadow_stylized.png" id="2_s0re0"]
@@ -7,9 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://cduucf1scqsry" path="res://assets/snail/butter_snail.png" id="4_bddgs"]
 [ext_resource type="Curve" uid="uid://x7j7ehd7oegp" path="res://player/accel_curves/accel.tres" id="4_f4t0a"]
 [ext_resource type="PackedScene" uid="uid://cg0ttpm037i8q" path="res://player/camera_3d.tscn" id="7_1aay6"]
+[ext_resource type="PackedScene" uid="uid://bnxapp1cun4o5" path="res://items/item.tscn" id="7_mwovg"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3hgyu"]
-absorbent = true
+bounce = 0.8
 
 [sub_resource type="Curve" id="Curve_1ayuy"]
 _data = [Vector2(0, 0.5), 0.0, -1.0, 0, 0, Vector2(1, 0.147368), 0.0, 0.0, 0, 0]
@@ -175,8 +176,8 @@ contact_monitor = true
 can_sleep = false
 angular_damp = 4.0
 script = ExtResource("1_bhxdc")
-accel = 36
-max_speed = 10
+accel = 44
+max_speed = 15
 slip_accel_curve = ExtResource("2_x5la1")
 accel_curve = ExtResource("4_f4t0a")
 slip_friction_curve = SubResource("Curve_1ayuy")
@@ -213,6 +214,11 @@ pixel_size = 0.0075
 shaded = true
 texture_filter = 0
 texture = ExtResource("4_bddgs")
+
+[node name="Item1" type="Marker3D" parent="Node3D/SnailSprite"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.501, 0)
+
+[node name="Item" parent="Node3D/SnailSprite/Item1" instance=ExtResource("7_mwovg")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node3D"]
 root_node = NodePath("../SnailSprite")

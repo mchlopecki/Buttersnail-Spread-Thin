@@ -141,7 +141,7 @@ func create_spill(collision, butter_container):
 		obj_butter_overlap[butter_container.fresh_butter] = butter_container
 		butter_container.fresh_butter.add_child(blob)
 		blob.global_position = col_pos
-		var rot_axis  = Vector3.UP.cross(col_norm).normalized()
+		var rot_axis = Vector3.UP.cross(col_norm).normalized()
 		if rot_axis:
 			var rot_angle = Vector3.UP.angle_to(col_norm)
 			var eulers = Basis(rot_axis, rot_angle).get_euler()
