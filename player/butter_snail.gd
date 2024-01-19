@@ -31,6 +31,10 @@ var butter_idx := 0
 @onready var col_shape = $CollisionShape3D
 @onready var anim_tree = $Node3D/AnimationTree
 
+var items = []
+@onready var item_store_locs = [$Node3D/SnailSprite/Item1, $Node3D/SnailSprite/Item1/Item2,$Node3D/SnailSprite/Item1/Item2/Item3,$Node3D/SnailSprite/Item1/Item2/Item3/Item4, $Node3D/SnailSprite/Item1/Item2/Item3/Item4/Item5]
+@onready var max_items = item_store_locs.size()
+
 # var report_contacts = false
 
 func _ready():
@@ -148,3 +152,17 @@ func create_spill(collision, butter_container):
 			blob.set_global_rotation(eulers) 
 
 		butter_container.add_new_blob(blob)
+
+func can_carry(_item):
+	return items.size() < max_items
+
+func begin_collect(item):
+	item.connect("collision_removed", _collect_item, CONNECT_DEFERRED & CONNECT_ONE_SHOT)
+
+func _collect_item(item):
+	var num_items = items.size()
+	items.append(item)
+	var item_old_loc = item.global_position
+	item.reparent(item_store_locs[num_items])
+	item.global_position = item_old_loc
+	item.begin_animation(item.ITEM_ANIM.COLLECT, [item.position, Vector3.ZERO])

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://clmfslnqaqs0i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xm6qb"]
+size = Vector3(3, 3, 3)
+
+[node name="ItemDropoff" type="Area3D" groups=["dropoff_area"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_xm6qb")
+
+[node name="DropoffSpot" type="Marker3D" parent="."]

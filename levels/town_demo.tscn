@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bglf35lwhp0ru"]
+[gd_scene load_steps=9 format=3 uid="uid://bglf35lwhp0ru"]
 
 [ext_resource type="PackedScene" uid="uid://cmkfi1tveftlt" path="res://player/butter_snail.tscn" id="2_wr5qg"]
 [ext_resource type="PhysicsMaterial" uid="uid://c4jrubghsckvo" path="res://physics_materials/absorbant_surface.tres" id="3_a4vgl"]
 [ext_resource type="PackedScene" uid="uid://dvviptjwqc6td" path="res://assets/buildings/town.blend" id="3_lynx1"]
+[ext_resource type="PackedScene" uid="uid://bnxapp1cun4o5" path="res://items/item.tscn" id="4_xcfxg"]
+[ext_resource type="PackedScene" uid="uid://clmfslnqaqs0i" path="res://items/item_dropoff.tscn" id="5_ugm2w"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xedo"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -27,7 +29,7 @@ shadow_enabled = true
 environment = SubResource("Environment_ejlgs")
 
 [node name="ButterSnail" parent="." instance=ExtResource("2_wr5qg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.38419e-07, 5.5281, 10.2684)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.38419e-07, 0.625135, -5.93307)
 angular_damp = 1.0
 max_speed = 8
 trail_make_height = 0.6
@@ -42,7 +44,16 @@ physics_material_override = ExtResource("3_a4vgl")
 [node name="StaticBody3D" parent="town/plaza_floor" index="0"]
 physics_material_override = ExtResource("3_a4vgl")
 
-[node name="@StaticBody3D@30245" parent="town" index="11"]
-physics_material_override = ExtResource("3_a4vgl")
+[node name="Item" parent="." instance=ExtResource("4_xcfxg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.401303, -10.342)
+
+[node name="Item2" parent="." instance=ExtResource("4_xcfxg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.10603, 0.401303, -10.342)
+
+[node name="Item3" parent="." instance=ExtResource("4_xcfxg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.10608, 0.401303, -10.342)
+
+[node name="ItemDropoff" parent="." instance=ExtResource("5_ugm2w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.997, 3, -12.595)
 
 [editable path="town"]

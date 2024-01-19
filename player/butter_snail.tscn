@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cmkfi1tveftlt"]
+[gd_scene load_steps=26 format=3 uid="uid://cmkfi1tveftlt"]
 
 [ext_resource type="Script" path="res://player/butter_snail.gd" id="1_bhxdc"]
 [ext_resource type="Texture2D" uid="uid://dq68n8j8xp3ud" path="res://assets/shadow_decal/shadow_stylized.png" id="2_s0re0"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://cduucf1scqsry" path="res://assets/snail/butter_snail.png" id="4_bddgs"]
 [ext_resource type="Curve" uid="uid://x7j7ehd7oegp" path="res://player/accel_curves/accel.tres" id="4_f4t0a"]
 [ext_resource type="PackedScene" uid="uid://cg0ttpm037i8q" path="res://player/camera_3d.tscn" id="7_1aay6"]
-[ext_resource type="PackedScene" uid="uid://bnxapp1cun4o5" path="res://items/item.tscn" id="7_mwovg"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3hgyu"]
 bounce = 0.8
@@ -49,6 +48,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Item1:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.2, 0.45, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_0fly3"]
 resource_name = "move_down"
@@ -82,6 +93,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Item1:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.2, 0.45, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_jc86x"]
 resource_name = "move_right"
@@ -97,6 +120,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Item1:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.2, 0.45, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_ux0qh"]
@@ -155,7 +190,7 @@ blend_point_1/pos = 1.0
 snap = 1.0
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_5opau"]
-graph_offset = Vector2(-513.658, 75.9854)
+graph_offset = Vector2(-655.5, 67)
 nodes/combine_anims/node = SubResource("AnimationNodeAdd2_y8s74")
 nodes/combine_anims/position = Vector2(20, 120)
 nodes/left_right/node = SubResource("AnimationNodeBlendSpace1D_h334k")
@@ -165,7 +200,7 @@ nodes/up_down/node = SubResource("AnimationNodeBlendSpace1D_7e6p6")
 nodes/up_down/position = Vector2(-160, 220)
 node_connections = [&"output", 0, &"combine_anims", &"combine_anims", 0, &"left_right", &"combine_anims", 1, &"up_down"]
 
-[node name="ButterSnail" type="RigidBody3D"]
+[node name="ButterSnail" type="RigidBody3D" groups=["player"]]
 collision_layer = 2
 collision_mask = 5
 collision_priority = 2.0
@@ -216,9 +251,19 @@ texture_filter = 0
 texture = ExtResource("4_bddgs")
 
 [node name="Item1" type="Marker3D" parent="Node3D/SnailSprite"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.501, 0)
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.2, 0.45, 0)
 
-[node name="Item" parent="Node3D/SnailSprite/Item1" instance=ExtResource("7_mwovg")]
+[node name="Item2" type="Marker3D" parent="Node3D/SnailSprite/Item1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Item3" type="Marker3D" parent="Node3D/SnailSprite/Item1/Item2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Item4" type="Marker3D" parent="Node3D/SnailSprite/Item1/Item2/Item3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Item5" type="Marker3D" parent="Node3D/SnailSprite/Item1/Item2/Item3/Item4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node3D"]
 root_node = NodePath("../SnailSprite")
