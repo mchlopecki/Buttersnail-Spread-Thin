@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2dyjdh2vgfa4"]
+
+[ext_resource type="Script" path="res://dialogue/dialogue_bubble.gd" id="1_3e4x7"]
+[ext_resource type="Texture2D" uid="uid://c5mw53jpycdc8" path="res://assets/ui/dialogue-ninepatch.png" id="1_pvjql"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_0gs3h"]
+viewport_path = NodePath("BubbleViewport")
+
+[node name="DialogueBubble" type="Sprite3D"]
+billboard = 2
+texture = SubResource("ViewportTexture_0gs3h")
+script = ExtResource("1_3e4x7")
+
+[node name="BubbleViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+
+[node name="Camera2D" type="Camera2D" parent="BubbleViewport"]
+
+[node name="CenterContainer" type="CenterContainer" parent="BubbleViewport/Camera2D"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="OuterMargin" type="MarginContainer" parent="BubbleViewport/Camera2D/CenterContainer"]
+layout_mode = 2
+
+[node name="Background" type="NinePatchRect" parent="BubbleViewport/Camera2D/CenterContainer/OuterMargin"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("1_pvjql")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="TextMargin" type="MarginContainer" parent="BubbleViewport/Camera2D/CenterContainer/OuterMargin"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="BubbleViewport/Camera2D/CenterContainer/OuterMargin/TextMargin"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+vertical_alignment = 1
+
+[node name="LetterDisplayTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="EndTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="LetterDisplayTimer" to="." method="_on_letter_display_timer_timeout"]

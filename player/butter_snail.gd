@@ -166,3 +166,32 @@ func _collect_item(item):
 	item.reparent(item_store_locs[num_items])
 	item.global_position = item_old_loc
 	item.begin_animation(item.ITEM_ANIM.COLLECT, [item.position, Vector3.ZERO])
+
+func has_item(item):
+	return items.find(item) >= 0
+
+func dropoff_item(item, dropoff):
+	var item_idx = items.find(item)
+	if item_idx >= 0 and item.state == item.ITEM_STATE.CARRY:
+		item.state = item.ITEM_STATE.DROPOFF_ANIM
+		_remove_item(item)
+		items.map(func (item): item.state = item.ITEM_STATE.CARRY_LOCK)
+		var old_item_loc = item.global_position
+		item.reparent(dropoff.dropoff_loc)
+		item.global_position = old_item_loc
+		item.begin_animation(item.ITEM_ANIM.DROPOFF, [item.position, Vector3.ZERO])
+		items.map(func (item): item.state = item.ITEM_STATE.CARRY)
+
+func _remove_item(item):
+	var item_idx = items.find(item)
+	if item_idx >= 0:
+		for i in range(item_idx+1, items.size()):
+			var item_old_loc = items[i].global_position
+			items[i].reparent(item_store_locs[i-1])
+			items[i].global_position = item_old_loc
+			items[i].begin_animation(item.ITEM_ANIM.FALL, [item.position, Vector3.ZERO])
+
+		items.remove_at(item_idx)
+
+func item_fall(item):
+	item.begin_animation(item.ITEM_ANIM.FALL, [item.position, Vector3.ZERO])

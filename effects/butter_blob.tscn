@@ -3,8 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c6dkfvs6y15o5" path="res://assets/butter_trail/butter_shader_circle.png" id="2_73wea"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0if18"]
-margin = 0.004
-radius = 0.3
+radius = 0.28
 
 [node name="ButterBlob" type="CollisionShape3D"]
 shape = SubResource("SphereShape3D_0if18")

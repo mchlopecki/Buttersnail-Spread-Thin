@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 QuitOnEscape="*res://quit_on_escape.gd"
 ButterSystem="res://singletons/butter_system.gd"
+DialogueManager="*res://singletons/dialogue_manager.gd"
 
 [input]
 

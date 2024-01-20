@@ -5,11 +5,21 @@
 [node name="MainMenu" type="Node"]
 script = ExtResource("1_ln05h")
 
-[node name="Button" type="Button" parent="."]
-anchors_preset = 15
+[node name="StartButton" type="Button" parent="."]
+anchors_preset = 11
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
+offset_left = -242.0
+grow_horizontal = 0
 grow_vertical = 2
 theme_override_font_sizes/font_size = 100
-text = "Start"
+text = "      Start      "
+
+[node name="HouseButton" type="Button" parent="."]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 314.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+text = "      House     "

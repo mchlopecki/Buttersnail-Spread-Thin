@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bglf35lwhp0ru"]
+[gd_scene load_steps=10 format=3 uid="uid://bglf35lwhp0ru"]
 
 [ext_resource type="PackedScene" uid="uid://cmkfi1tveftlt" path="res://player/butter_snail.tscn" id="2_wr5qg"]
 [ext_resource type="PhysicsMaterial" uid="uid://c4jrubghsckvo" path="res://physics_materials/absorbant_surface.tres" id="3_a4vgl"]
@@ -19,6 +19,9 @@ sky = SubResource("Sky_e1bdm")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_y8b7r"]
+radius = 2.0
+
 [node name="TownDemo" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -37,23 +40,27 @@ trail_make_height = 0.6
 [node name="town" parent="." instance=ExtResource("3_lynx1")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.2338, 0, 1.92071)
 
-[node name="StaticBody3D" parent="town/wall" index="0"]
-transform = Transform3D(0.999976, 0, -0.00685909, 0, 1, 0, 0.00685909, 0, 0.999976, 0, 0, 0)
-physics_material_override = ExtResource("3_a4vgl")
-
 [node name="StaticBody3D" parent="town/plaza_floor" index="0"]
 physics_material_override = ExtResource("3_a4vgl")
+
+[node name="outer_house4_001" parent="town" index="13"]
+visible = false
 
 [node name="Item" parent="." instance=ExtResource("4_xcfxg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.401303, -10.342)
 
-[node name="Item2" parent="." instance=ExtResource("4_xcfxg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.10603, 0.401303, -10.342)
+[node name="ItemDropoff" parent="." node_paths=PackedStringArray("dropoff_loc", "item_required") instance=ExtResource("5_ugm2w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.23927, 0.340975, -11.3189)
+collision_layer = 8
+collision_mask = 2
+dropoff_loc = NodePath("Marker3D")
+item_required = NodePath("../Item")
 
-[node name="Item3" parent="." instance=ExtResource("4_xcfxg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.10608, 0.401303, -10.342)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ItemDropoff"]
+shape = SubResource("CylinderShape3D_y8b7r")
 
-[node name="ItemDropoff" parent="." instance=ExtResource("5_ugm2w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.997, 3, -12.595)
+[node name="Marker3D" type="Marker3D" parent="ItemDropoff"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.562757, 0.746811, -0.662117)
+gizmo_extents = 1.0
 
 [editable path="town"]

@@ -20,7 +20,7 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_db12g"]
-viewport_path = NodePath("ButterBoy/Camera3D/SubViewport")
+viewport_path = NodePath("SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fk17u"]
 resource_local_to_scene = true
