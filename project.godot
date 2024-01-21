@@ -21,6 +21,11 @@ QuitOnEscape="*res://quit_on_escape.gd"
 ButterSystem="res://singletons/butter_system.gd"
 DialogueManager="*res://singletons/dialogue_manager.gd"
 
+[display]
+
+window/size/viewport_width=960
+window/size/viewport_height=540
+
 [input]
 
 forward={

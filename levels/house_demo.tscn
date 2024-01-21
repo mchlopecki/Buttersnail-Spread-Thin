@@ -30,7 +30,6 @@ environment = SubResource("Environment_ejlgs")
 [node name="ButterSnail" parent="." instance=ExtResource("1_2ur56")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0139322, 0.625135, 5.23969)
 angular_damp = 1.0
-max_speed = 8
 trail_make_height = 0.6
 
 [node name="Item" parent="." instance=ExtResource("4_tlx4l")]
