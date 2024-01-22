@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bc30q3w4bnfd0"
-path.s3tc="res://.godot/imported/villager.png-e3b70321cb6745449f5521eb860c7bde.s3tc.ctex"
+uid="uid://clop4x0og10bm"
+path.s3tc="res://.godot/imported/market_shade_1.png-5469654f000b62fc7765de65b9eb0e52.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/characters/villager.png"
-dest_files=["res://.godot/imported/villager.png-e3b70321cb6745449f5521eb860c7bde.s3tc.ctex"]
+source_file="res://assets/textures/market_canvas/market_shade_1.png"
+dest_files=["res://.godot/imported/market_shade_1.png-5469654f000b62fc7765de65b9eb0e52.s3tc.ctex"]
 
 [params]
 

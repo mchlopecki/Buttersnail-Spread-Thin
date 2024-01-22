@@ -22,6 +22,9 @@ func start_dialogue(caller, position, lines: Array[String]):
     
     dialogue_bubbles[caller]["is_active"] = true
     
+func abrupt_end_dialogue(caller):
+    dialogue_bubbles[caller]["object"].queue_free()
+    dialogue_bubbles.erase(caller)
 
 func _init_bubble_data(caller, position, lines):
     return {

@@ -71,7 +71,7 @@ physics_material_override = ExtResource("3_a4vgl")
 [node name="StaticBody3D" parent="town/plaza_floor" index="0"]
 physics_material_override = ExtResource("3_a4vgl")
 
-[node name="outer_house4_001" parent="town" index="14"]
+[node name="outer_house4_001" parent="town" index="13"]
 visible = false
 
 [node name="StaticBody3D" parent="town/big_stall" index="0"]
