@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqeuxc7jtepn7"]
+
+[ext_resource type="Texture2D" uid="uid://bm6uqshrh2lks" path="res://assets/textures/tree.png" id="1_ktm5k"]
+[ext_resource type="Texture2D" uid="uid://dq68n8j8xp3ud" path="res://assets/shadow_decal/shadow_stylized.png" id="2_jtvjq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bt3x8"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("1_ktm5k")
+billboard_mode = 2
+distance_fade_mode = 2
+distance_fade_min_distance = 1.0
+distance_fade_max_distance = 4.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gdf35"]
+material = SubResource("StandardMaterial3D_bt3x8")
+size = Vector2(4, 4)
+center_offset = Vector3(0, 2, 0)
+orientation = 2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cjprj"]
+radius = 0.307881
+
+[node name="Tree" type="MeshInstance3D"]
+mesh = SubResource("PlaneMesh_gdf35")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_cjprj")
+
+[node name="Decal" type="Decal" parent="."]
+size = Vector3(2, 0.189533, 2)
+texture_albedo = ExtResource("2_jtvjq")

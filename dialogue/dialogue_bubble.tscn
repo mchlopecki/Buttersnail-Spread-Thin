@@ -7,15 +7,19 @@
 viewport_path = NodePath("BubbleViewport")
 
 [node name="DialogueBubble" type="Sprite3D"]
+layers = 512
 billboard = 1
 no_depth_test = true
 render_priority = 16
 texture = SubResource("ViewportTexture_0gs3h")
 script = ExtResource("1_3e4x7")
+space_time = 0.05
+punctuation_time = 0.1
 
 [node name="BubbleViewport" type="SubViewport" parent="."]
 disable_3d = true
 transparent_bg = true
+size = Vector2i(1024, 1024)
 
 [node name="Camera2D" type="Camera2D" parent="BubbleViewport"]
 
@@ -25,6 +29,8 @@ transparent_bg = true
 one_shot = true
 
 [node name="EndTimer" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 
 [connection signal="timeout" from="LetterDisplayTimer" to="." method="_on_letter_display_timer_timeout"]
+[connection signal="timeout" from="EndTimer" to="." method="_on_end_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cmkfi1tveftlt"]
+[gd_scene load_steps=38 format=3 uid="uid://cmkfi1tveftlt"]
 
 [ext_resource type="Script" path="res://player/butter_snail.gd" id="1_bhxdc"]
 [ext_resource type="Texture2D" uid="uid://dq68n8j8xp3ud" path="res://assets/shadow_decal/shadow_stylized.png" id="2_s0re0"]
@@ -6,10 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://dew35sqwgf5rc" path="res://assets/butter_trail/player_butter_shadow.png" id="3_bx8ef"]
 [ext_resource type="Curve" uid="uid://x7j7ehd7oegp" path="res://player/accel_curves/accel.tres" id="4_f4t0a"]
 [ext_resource type="Texture2D" uid="uid://6r82coe4r3jh" path="res://assets/snail/buttersnail.png" id="6_5w4xb"]
+[ext_resource type="Shader" path="res://shaders/player/shear_shader.gdshader" id="6_duuqd"]
 [ext_resource type="PackedScene" uid="uid://cg0ttpm037i8q" path="res://player/camera_3d.tscn" id="7_1aay6"]
+[ext_resource type="Material" uid="uid://bpxpuyh0dcbic" path="res://effects/butter_material.tres" id="9_fyufm"]
+[ext_resource type="AudioStream" uid="uid://ctjdo830k0jmp" path="res://assets/music/main_theme.mp3" id="10_ifxd1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3hgyu"]
-bounce = 0.5
+bounce = 0.6
 
 [sub_resource type="Curve" id="Curve_1ayuy"]
 _data = [Vector2(0, 0.5), 0.0, -1.0, 0, 0, Vector2(1, 0.147368), 0.0, 0.0, 0, 0]
@@ -20,6 +23,13 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.852632), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ggxq5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8c1wq"]
+render_priority = 0
+shader = ExtResource("6_duuqd")
+shader_parameter/horizontal_shear = 0.0
+shader_parameter/vertical_shear = 0.0
+shader_parameter/sprite_texture = ExtResource("6_5w4xb")
 
 [sub_resource type="Animation" id="Animation_xisb8"]
 length = 0.001
@@ -59,6 +69,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector3(-0.2, 0.45, 0)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:material_override:shader_parameter/horizontal_shear")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_0fly3"]
 resource_name = "move_down"
@@ -75,6 +97,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 0.523599, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Item1:position:z")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.05, 0.1]
 }
 
 [sub_resource type="Animation" id="Animation_50l27"]
@@ -95,14 +129,26 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Item1:position")
+tracks/1/path = NodePath("Item1:position:x")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(-0.3, 0.8, 0)]
+"values": [-0.3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Item1:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.8]
 }
 
 [sub_resource type="Animation" id="Animation_jc86x"]
@@ -123,14 +169,26 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Item1:position")
+tracks/1/path = NodePath("Item1:position:x")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.3, 0.8, 0)]
+"values": [0.3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Item1:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.8]
 }
 
 [sub_resource type="Animation" id="Animation_ux0qh"]
@@ -149,6 +207,50 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, -0.523599, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Item1:position:z")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.15, -0.25]
+}
+
+[sub_resource type="Animation" id="Animation_8ytmd"]
+resource_name = "speed"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material_override:shader_parameter/horizontal_shear")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.3]
+}
+
+[sub_resource type="Animation" id="Animation_eqbnf"]
+resource_name = "speed_right"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material_override:shader_parameter/horizontal_shear")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.3]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_irpxu"]
 _data = {
@@ -156,8 +258,12 @@ _data = {
 "move_down": SubResource("Animation_0fly3"),
 "move_left": SubResource("Animation_50l27"),
 "move_right": SubResource("Animation_jc86x"),
-"move_up": SubResource("Animation_ux0qh")
+"move_up": SubResource("Animation_ux0qh"),
+"speed_left": SubResource("Animation_8ytmd"),
+"speed_right": SubResource("Animation_eqbnf")
 }
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_4n8g3"]
 
 [sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_y8s74"]
 
@@ -175,6 +281,18 @@ blend_point_1/pos = 1.0
 snap = 1.0
 blend_mode = 1
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gicg1"]
+animation = &"speed_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_go351"]
+animation = &"speed_right"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_stnxj"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_gicg1")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_go351")
+blend_point_1/pos = 1.0
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3i85q"]
 animation = &"move_down"
 
@@ -189,18 +307,27 @@ blend_point_1/pos = 1.0
 snap = 1.0
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_5opau"]
+nodes/Add2/node = SubResource("AnimationNodeAdd2_4n8g3")
+nodes/Add2/position = Vector2(240, 120)
 nodes/combine_anims/node = SubResource("AnimationNodeAdd2_y8s74")
 nodes/combine_anims/position = Vector2(20, 120)
 nodes/left_right/node = SubResource("AnimationNodeBlendSpace1D_h334k")
 nodes/left_right/position = Vector2(-160, 80)
-nodes/output/position = Vector2(200, 120)
+nodes/output/position = Vector2(400, 120)
+nodes/speed_shear/node = SubResource("AnimationNodeBlendSpace1D_stnxj")
+nodes/speed_shear/position = Vector2(20, 360)
 nodes/up_down/node = SubResource("AnimationNodeBlendSpace1D_7e6p6")
 nodes/up_down/position = Vector2(-160, 220)
-node_connections = [&"output", 0, &"combine_anims", &"combine_anims", 0, &"left_right", &"combine_anims", 1, &"up_down"]
+node_connections = [&"output", 0, &"Add2", &"Add2", 0, &"combine_anims", &"Add2", 1, &"speed_shear", &"combine_anims", 0, &"left_right", &"combine_anims", 1, &"up_down"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_wrlq6"]
+material = ExtResource("9_fyufm")
+
+[sub_resource type="Gradient" id="Gradient_mgflx"]
+colors = PackedColorArray(0.305882, 0.231373, 0.176471, 1, 0.83, 0.81838, 0.4814, 1)
 
 [node name="ButterSnail" type="RigidBody3D" groups=["player"]]
 collision_layer = 2
-collision_mask = 5
 collision_priority = 2.0
 mass = 2.0
 physics_material_override = SubResource("PhysicsMaterial_3hgyu")
@@ -214,6 +341,7 @@ slip_accel_curve = ExtResource("2_x5la1")
 accel_curve = ExtResource("4_f4t0a")
 slip_friction_curve = SubResource("Curve_1ayuy")
 friction_curve = SubResource("Curve_tcicd")
+shear_factor = 1.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_ggxq5")
@@ -229,7 +357,7 @@ top_level = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 size = Vector3(1, 0.3, 1)
 texture_albedo = ExtResource("2_s0re0")
-cull_mask = 1041385
+cull_mask = 1040873
 
 [node name="Butter" type="Decal" parent="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -237,10 +365,11 @@ layers = 8
 sorting_offset = -1.0
 size = Vector3(0.9, 0.3, 0.9)
 texture_albedo = ExtResource("3_bx8ef")
-cull_mask = 1041377
+cull_mask = 1040865
 
 [node name="SnailSprite" type="Sprite3D" parent="Node3D"]
 layers = 4
+material_override = SubResource("ShaderMaterial_8c1wq")
 cast_shadow = 0
 offset = Vector2(0, 60)
 pixel_size = 0.0025
@@ -274,10 +403,42 @@ libraries = {
 tree_root = SubResource("AnimationNodeBlendTree_5opau")
 anim_player = NodePath("../AnimationPlayer")
 active = true
+parameters/Add2/add_amount = 1.0
 parameters/combine_anims/add_amount = 1.0
 parameters/left_right/blend_position = 0.0
+parameters/speed_shear/blend_position = 0.0
 parameters/up_down/blend_position = 0.0
 
-[node name="Camera3D" parent="Node3D" instance=ExtResource("7_1aay6")]
-transform = Transform3D(-0.996195, 0.066765, -0.0560226, 0, 0.642788, 0.766044, 0.0871556, 0.763129, -0.640342, 0, 4, -4)
+[node name="ShortArm" type="SpringArm3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 0, 0)
+collision_mask = 17
+spring_length = 5.5
+
+[node name="LongArm" type="SpringArm3D" parent="Node3D/ShortArm"]
+collision_mask = 16
+
+[node name="Camera3D" parent="Node3D/ShortArm/LongArm" instance=ExtResource("7_1aay6")]
+transform = Transform3D(-0.996195, 0.066765, -0.0560226, -0.0616283, -0.994133, -0.0888847, -0.0616283, -0.0850939, 0.994465, 0, 0, 5)
 fov = 60.0
+
+[node name="ButterParticles" type="CPUParticles3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.467765, 0)
+layers = 4
+emitting = false
+amount = 12
+explosiveness = 0.3
+lifetime_randomness = 0.5
+fract_delta = false
+mesh = SubResource("SphereMesh_wrlq6")
+direction = Vector3(1, 3, 0)
+flatness = 1.0
+gravity = Vector3(0, -4.5, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 6.0
+scale_amount_min = 0.05
+scale_amount_max = 0.1
+color_initial_ramp = SubResource("Gradient_mgflx")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_ifxd1")
+autoplay = true

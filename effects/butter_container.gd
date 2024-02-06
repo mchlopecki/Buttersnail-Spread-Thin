@@ -13,5 +13,6 @@ func _on_fresh_butter_body_exited(body:Node3D):
 	
 func add_new_blob(blob):		
 	blob_multimesh.visible_instance_count += 1
+	# var blob_basis = Basis.from_scale(Vector3(0.05,0.05,0.05))
 	blob_multimesh.set_instance_transform(blob_count, Transform3D(blob.basis, blob.position))
 	blob_count += 1

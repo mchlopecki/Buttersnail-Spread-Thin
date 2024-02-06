@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://c114r1o6if8w1"]
+
+[ext_resource type="Script" path="res://task.gd" id="1_7wtx7"]
+[ext_resource type="Theme" uid="uid://b2jc8x5ycwx1o" path="res://main_menu/main_theme.tres" id="1_uexm2"]
+[ext_resource type="FontFile" uid="uid://dw62vhdi67vo6" path="res://assets/ui/fonts/rowdies/Rowdies-Regular.ttf" id="2_xdltg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_it8t5"]
+bg_color = Color(0.0823529, 0.0823529, 0.0823529, 0.705882)
+border_width_left = 3
+border_width_top = 1
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.145098, 0.145098, 0.145098, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="MarginContainer" type="MarginContainer"]
+custom_minimum_size = Vector2(250, 0)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_7wtx7")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(75, 15)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_it8t5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Title" type="Label" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("1_uexm2")
+theme_override_fonts/font = ExtResource("2_xdltg")
+theme_override_font_sizes/font_size = 20
+text = "Test"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Hint" type="Label" parent="VBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme = ExtResource("1_uexm2")
+theme_override_font_sizes/font_size = 20
+text = "hint"
+autowrap_mode = 3

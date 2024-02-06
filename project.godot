@@ -17,9 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-QuitOnEscape="*res://quit_on_escape.gd"
 ButterSystem="res://singletons/butter_system.gd"
 DialogueManager="*res://singletons/dialogue_manager.gd"
+GameManager="*res://singletons/game_manager.gd"
 
 [display]
 
@@ -65,9 +65,12 @@ space={
 3d_render/layer_3="player"
 3d_render/layer_4="butter"
 3d_render/layer_5="butter_shader_player"
+3d_render/layer_10="world_ui"
 3d_render/layer_11="butter_shader_world"
 3d_render/layer_12="butter_shader_blob"
 3d_render/layer_13="butter_shader_kinematic"
 3d_physics/layer_1="world"
 3d_physics/layer_2="player"
 3d_physics/layer_3="butter_trail"
+3d_physics/layer_5="world_camera"
+3d_physics/layer_6="word_softbodies"

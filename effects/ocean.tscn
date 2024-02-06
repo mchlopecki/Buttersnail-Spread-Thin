@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://32ym8n66xptg"]
+
+[ext_resource type="PackedScene" uid="uid://b1ifm0554gtdb" path="res://addons/boujie_water_shader/prefabs/outset_ocean.tscn" id="1_yy5if"]
+[ext_resource type="Material" uid="uid://xly8gwdvphgq" path="res://assets/materials/ocean_mat.tres" id="2_1sf2o"]
+[ext_resource type="Script" path="res://addons/boujie_water_shader/types/water_material_designer.gd" id="2_g24k4"]
+[ext_resource type="Material" uid="uid://cvnsu7lttsfsh" path="res://addons/boujie_water_shader/prefabs/outset_ocean_material.tres" id="3_htlfx"]
+[ext_resource type="Script" path="res://addons/boujie_water_shader/types/gerstner_wave.gd" id="4_fqh1q"]
+
+[sub_resource type="Resource" id="Resource_d2b4l"]
+script = ExtResource("4_fqh1q")
+steepness = 0.25
+amplitude = 0.1
+direction_degrees = 0.0
+frequency = 0.1
+speed = 1.0
+phase_degrees = 0.0
+
+[sub_resource type="Resource" id="Resource_vcja8"]
+script = ExtResource("4_fqh1q")
+steepness = 0.1
+amplitude = 0.1
+direction_degrees = 40.0
+frequency = 0.13
+speed = 0.8
+phase_degrees = 0.0
+
+[sub_resource type="Resource" id="Resource_oqadu"]
+script = ExtResource("4_fqh1q")
+steepness = 0.3
+amplitude = 0.2
+direction_degrees = 100.0
+frequency = 0.18
+speed = 0.5
+phase_degrees = 0.0
+
+[node name="Node3D" type="Node3D"]
+
+[node name="OutsetOcean" parent="." instance=ExtResource("1_yy5if")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.86368, 0, -1.99179)
+material = ExtResource("2_1sf2o")
+outermost_resolution = 3
+unit_size = 4.0
+far_edge = 1000
+
+[node name="DesignerNode" type="Node" parent="."]
+script = ExtResource("2_g24k4")
+material = ExtResource("3_htlfx")
+update_on_ready = true
+update_when_camera_far_changes = true
+ocean_path = NodePath("../OutsetOcean")
+height_waves = Array[ExtResource("4_fqh1q")]([SubResource("Resource_d2b4l"), SubResource("Resource_vcja8"), SubResource("Resource_oqadu")])
+foam_waves = Array[ExtResource("4_fqh1q")]([SubResource("Resource_d2b4l"), SubResource("Resource_vcja8"), SubResource("Resource_oqadu")])
+uv_waves = Array[ExtResource("4_fqh1q")]([SubResource("Resource_d2b4l"), SubResource("Resource_vcja8"), SubResource("Resource_oqadu")])

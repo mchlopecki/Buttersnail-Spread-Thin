@@ -2,16 +2,7 @@
 
 [ext_resource type="Script" path="res://effects/butter_container.gd" id="1_iqkbr"]
 [ext_resource type="ArrayMesh" uid="uid://bmxfsdy2m0hqp" path="res://assets/butter_trail/blob.obj" id="2_bmgdc"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r1dqr"]
-diffuse_mode = 3
-specular_mode = 1
-albedo_color = Color(0.972549, 0.980392, 0.45098, 1)
-metallic = 0.1
-metallic_specular = 0.6
-roughness = 0.8
-clearcoat = 0.1
-clearcoat_roughness = 0.2
+[ext_resource type="Material" uid="uid://ckw7opof441td" path="res://assets/materials/ocean_mat2.tres" id="2_jre1s"]
 
 [sub_resource type="MultiMesh" id="MultiMesh_ws4hs"]
 resource_local_to_scene = true
@@ -34,7 +25,7 @@ collision_mask = 2
 
 [node name="BlobRenderer" type="MultiMeshInstance3D" parent="."]
 layers = 8
-material_override = SubResource("StandardMaterial3D_r1dqr")
+material_override = ExtResource("2_jre1s")
 cast_shadow = 0
 multimesh = SubResource("MultiMesh_ws4hs")
 

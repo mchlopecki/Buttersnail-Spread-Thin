@@ -1,7 +1,8 @@
 class_name Item
-extends Node3D
+extends Sprite3D
 
 signal collision_removed
+signal item_deposited
 
 @onready var pickup_area = $PickupArea
 var collectible := true : set = _set_collectible
@@ -30,6 +31,8 @@ func _set_state(new_state):
 			collision_removed.emit(self)
 		ITEM_STATE.CARRY:
 			pass
+		ITEM_STATE.DROPPED:
+			item_deposited.emit(self)
 
 func on_deliver():
 	pass

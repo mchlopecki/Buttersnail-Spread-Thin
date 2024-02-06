@@ -1,0 +1,98 @@
+[gd_scene load_steps=6 format=3 uid="uid://cuiqsie44syse"]
+
+[ext_resource type="Script" path="res://task_list.gd" id="1_bx8vd"]
+
+[sub_resource type="Animation" id="Animation_x5cpn"]
+resource_name = "expand"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/VBoxContainer/ScrollContainer:custom_minimum_size")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(260, 125), Vector2(260, 500)]
+}
+
+[sub_resource type="Animation" id="Animation_vx6eu"]
+resource_name = "contract"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/VBoxContainer/ScrollContainer:custom_minimum_size")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(260, 500), Vector2(260, 125)]
+}
+
+[sub_resource type="Animation" id="Animation_id8rd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/VBoxContainer/ScrollContainer:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(260, 125)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qyky4"]
+_data = {
+"RESET": SubResource("Animation_id8rd"),
+"contract": SubResource("Animation_vx6eu"),
+"expand": SubResource("Animation_x5cpn")
+}
+
+[node name="Tasks" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bx8vd")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(260, 125)
+layout_mode = 2
+size_flags_horizontal = 8
+follow_focus = true
+scroll_vertical_custom_step = 5.0
+horizontal_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qyky4")
+}

@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b2jc8x5ycwx1o"]
+
+[ext_resource type="FontFile" uid="uid://cung686fplh15" path="res://assets/ui/fonts/rowdies/Rowdies-Light.ttf" id="1_qddf1"]
+
+[resource]
+default_font = ExtResource("1_qddf1")
+default_font_size = 28

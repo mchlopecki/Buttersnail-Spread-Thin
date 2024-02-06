@@ -5,14 +5,12 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_d0ap4"]
 
-[node name="Item" type="Node3D"]
-script = ExtResource("1_esfj1")
-
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="Item" type="Sprite3D"]
 pixel_size = 0.023
 billboard = 2
 shaded = true
 texture = ExtResource("1_32ld7")
+script = ExtResource("1_esfj1")
 
 [node name="PickupArea" type="Area3D" parent="."]
 collision_layer = 8

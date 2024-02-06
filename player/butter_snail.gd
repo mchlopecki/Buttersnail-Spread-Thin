@@ -18,14 +18,20 @@ var boost = 1.0
 @onready var cur_accel_curve = accel_curve
 @onready var cur_friction_curve = friction_curve
 
-var butter_blob = preload("res://effects/butter_blob.tscn")
-
+@export var trail_make_height = 0.5
 var sliding_on_butter = false
 
-@export var trail_make_height = 0.5
+@export var shear_factor = 0.3
+@export var particle_max_speed = 6.0
+@export var butter_particle_threshold = 2.0
+var butter_blob = preload("res://effects/butter_blob.tscn")
+
+var external_forces = []
 
 enum INPUTS {FORWARD = 1, BACKWARD = 1, FORBACK = 1, LEFT = 2, RIGHT = 2, LEFTRIGHT = 2}
 var input_mask = 0
+var force_control = false
+var force_direction := Vector3(0.0,0.0,0.0)
 
 var obj_butter_overlap = {} # ButterBlob Area3d object : ButterContainer 
 var last_cols = {} # contact Object : {contact_count : int, position_sum : Vec3, normal_sum : Vec3}
@@ -33,11 +39,13 @@ var butter_idx := 0
 
 @onready var col_shape = $CollisionShape3D
 @onready var anim_tree = $Node3D/AnimationTree
+@onready var butter_particles = $Node3D/ButterParticles
+@onready var second_spring_arm = $Node3D/ShortArm/LongArm
 # @onready var lock_rot_timer = $LockRotationTimer
 # @export_range(0.1,0.5,0.1) var lock_rot_time = 0.1
 
 var items = []
-@onready var item_store_locs = [$Node3D/SnailSprite/Item1, $Node3D/SnailSprite/Item1/Item2,$Node3D/SnailSprite/Item1/Item2/Item3,$Node3D/SnailSprite/Item1/Item2/Item3/Item4, $Node3D/SnailSprite/Item1/Item2/Item3/Item4/Item5]
+@onready var item_store_locs = [$Node3D/SnailSprite/Item1, $Node3D/SnailSprite/Item1/Item2, $Node3D/SnailSprite/Item1/Item2/Item3] #, $Node3D/SnailSprite/Item1/Item2/Item3/Item4, $Node3D/SnailSprite/Item1/Item2/Item3/Item4/Item5]
 @onready var max_items = item_store_locs.size()
 
 # var report_contacts = false
@@ -72,7 +80,6 @@ func _integrate_forces(state):
         else:
             # we may get stuck on stairs so provide a boost
             boost = stair_lock_boost
-
             
     check_butter(state)
     
@@ -85,12 +92,26 @@ func _integrate_forces(state):
         cur_friction_curve = friction_curve
         angular_damp = ang_damp
 
-    handle_input(state)
+    if not force_control:
+        handle_input(state)
+    else:
+        state.apply_force(get_accel(-linear_velocity.z, max_speed) * force_direction)
+
+    handle_external_forces(state)
     # clamp_speed(state)
     update_friction(state)
-    anim_tree["parameters/up_down/blend_position"] = linear_velocity.z / max_speed
+    _update_animation_paratemers()
 
     last_cols = {}
+
+func _update_animation_paratemers():
+    anim_tree["parameters/up_down/blend_position"] = linear_velocity.z / max_speed
+    anim_tree["parameters/speed_shear/blend_position"] = linear_velocity.x / max_speed
+    if sliding_on_butter and linear_velocity.length() > butter_particle_threshold:
+        butter_particles.emitting = true
+    else:
+        butter_particles.emitting = false
+    butter_particles.initial_velocity_max = (linear_velocity.length() / max_speed) * particle_max_speed
 
 func _physics_process(_delta):
     pass
@@ -119,6 +140,12 @@ func handle_input(state):
         state.apply_force(get_accel(-linear_velocity.x, max_speed) * Vector3.MODEL_RIGHT)
         anim_tree["parameters/left_right/blend_position"] = 1.0
         anim_tree["parameters/combine_anims/add_amount"] = -1.0
+
+func handle_external_forces(state):
+    for force in external_forces:
+        state.apply_force(force)
+    
+    external_forces = []
 
 func clamp_speed(_state):
     var y_plane_vel = Vector3(linear_velocity.x, 0.0, linear_velocity.z)
@@ -194,6 +221,7 @@ func dropoff_item(item, dropoff):
         item.global_position = old_item_loc
         item.begin_animation(item.ITEM_ANIM.DROPOFF, [item.position, Vector3.ZERO])
         items.map(func (item): item.state = item.ITEM_STATE.CARRY)
+        return true
 
 func _remove_item(item):
     var item_idx = items.find(item)

@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bki8rm1wlt54o"]
+
+[ext_resource type="Texture2D" uid="uid://damc2e2li54qa" path="res://assets/textures/house_walls.png" id="1_rlcrb"]
+
+[resource]
+resource_name = "HouseWall"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_rlcrb")
+roughness = 0.5
+distance_fade_mode = 2
+distance_fade_min_distance = 2.5
+distance_fade_max_distance = 4.0

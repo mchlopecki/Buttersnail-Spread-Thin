@@ -1,0 +1,86 @@
+[gd_scene load_steps=11 format=3 uid="uid://dn0r0as80nrq"]
+
+[ext_resource type="PackedScene" uid="uid://c0uypvro8o7d6" path="res://assets/buildings/bakery.blend" id="1_5x33p"]
+[ext_resource type="Script" path="res://levels/bakery.gd" id="1_u5g7l"]
+[ext_resource type="PackedScene" uid="uid://cmkfi1tveftlt" path="res://player/butter_snail.tscn" id="2_1cv8s"]
+[ext_resource type="Texture2D" uid="uid://c3txy4duj7qwr" path="res://assets/skybox/skybox.png" id="3_efeub"]
+[ext_resource type="PackedScene" uid="uid://cs3rev0wqur81" path="res://characters/villager.tscn" id="4_d0mth"]
+[ext_resource type="Texture2D" uid="uid://blds2ip867ywg" path="res://assets/characters/baker.png" id="5_v75em"]
+[ext_resource type="Texture2D" uid="uid://8624a7qhql0v" path="res://assets/ui/final_screen.jpg" id="6_si2qm"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4uo6s"]
+panorama = ExtResource("3_efeub")
+filter = false
+
+[sub_resource type="Sky" id="Sky_007q8"]
+sky_material = SubResource("PanoramaSkyMaterial_4uo6s")
+
+[sub_resource type="Environment" id="Environment_b82rx"]
+background_mode = 2
+sky = SubResource("Sky_007q8")
+sky_rotation = Vector3(-0.340339, 2.37714, 3.14159)
+reflected_light_source = 2
+tonemap_mode = 3
+ssil_radius = 1.0
+ssil_intensity = 3.0
+ssil_sharpness = 0.5
+sdfgi_enabled = true
+sdfgi_min_cell_size = 0.1
+sdfgi_y_scale = 0
+sdfgi_energy = 0.1
+glow_normalized = true
+glow_bloom = 0.1
+
+[node name="bakery" type="Node3D" node_paths=PackedStringArray("baker", "toast")]
+script = ExtResource("1_u5g7l")
+baker = NodePath("Villager")
+toast = NodePath("bakery/toast/StaticBody3D")
+
+[node name="bakery" parent="." instance=ExtResource("1_5x33p")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.996778, 0.0789806, -0.0139264, 0, 0.173648, 0.984808, 0.080199, 0.981635, -0.173089, 0, 0, 0)
+light_color = Color(0.639216, 0.411765, 0.278431, 1)
+light_energy = 1.2
+light_indirect_energy = 1.2
+light_volumetric_fog_energy = 1.2
+shadow_enabled = true
+shadow_blur = 2.0
+sky_mode = 1
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.996778, 0.0789806, -0.0139264, 0, 0.173648, 0.984808, 0.080199, 0.981635, -0.173089, 0, 0, 0)
+light_color = Color(0.360784, 0.588235, 0.721569, 1)
+light_energy = 1.2
+light_indirect_energy = 4.0
+light_volumetric_fog_energy = 1.2
+sky_mode = 1
+
+[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.996778, 0.0789806, -0.0139264, 0, 0.173648, 0.984808, 0.080199, 0.981635, -0.173089, 0, 0, 0)
+light_energy = 0.25
+light_indirect_energy = 4.0
+shadow_enabled = true
+shadow_blur = 2.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_b82rx")
+
+[node name="Villager" parent="." instance=ExtResource("4_d0mth")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1274, -2.36721, 4.65182)
+texture = ExtResource("5_v75em")
+
+[node name="WinScreen" type="TextureRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_si2qm")
+expand_mode = 5
+
+[node name="ButterSnail" parent="." instance=ExtResource("2_1cv8s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.646158, -1.72686, 2.48724)
+
+[editable path="bakery"]

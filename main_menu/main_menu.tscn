@@ -1,25 +1,65 @@
-[gd_scene load_steps=2 format=3 uid="uid://d44i1bv85xk8"]
+[gd_scene load_steps=4 format=3 uid="uid://d44i1bv85xk8"]
 
 [ext_resource type="Script" path="res://main_menu/main_menu.gd" id="1_ln05h"]
+[ext_resource type="Texture2D" uid="uid://bf5upho42x5d5" path="res://assets/ui/main_menu_final.jpg" id="2_cq43s"]
+[ext_resource type="Theme" uid="uid://b2jc8x5ycwx1o" path="res://main_menu/main_theme.tres" id="3_gegys"]
 
-[node name="MainMenu" type="Node"]
-script = ExtResource("1_ln05h")
-
-[node name="StartButton" type="Button" parent="."]
-anchors_preset = 11
-anchor_left = 1.0
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("start_button", "house_button", "exit_button")]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -242.0
-grow_horizontal = 0
+grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 100
+script = ExtResource("1_ln05h")
+start_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/StartButton")
+house_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/HouseButton")
+exit_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/ExitButton")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_cq43s")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 250
+theme_override_constants/margin_right = 450
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_gegys")
+theme_override_font_sizes/font_size = 50
 text = "      Start      "
 
-[node name="HouseButton" type="Button" parent="."]
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 314.0
-grow_vertical = 2
-theme_override_font_sizes/font_size = 100
+[node name="HouseButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_gegys")
+theme_override_font_sizes/font_size = 38
 text = "      House     "
+
+[node name="ExitButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_gegys")
+theme_override_font_sizes/font_size = 38
+text = "      Exit     "

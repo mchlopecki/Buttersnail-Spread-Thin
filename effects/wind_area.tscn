@@ -1,0 +1,94 @@
+[gd_scene load_steps=12 format=3 uid="uid://dp6kcyb2qjeul"]
+
+[ext_resource type="Script" path="res://effects/wind_area.gd" id="1_7l0uu"]
+[ext_resource type="Texture2D" uid="uid://cngs71seqsxyr" path="res://assets/particles/schleaf.png" id="2_usuiv"]
+
+[sub_resource type="Curve" id="Curve_jvmr3"]
+max_value = 5.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.542, 1.5), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_r3m1k"]
+max_value = 5.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_osmmr"]
+max_value = 5.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_o6d4c"]
+curve_x = SubResource("Curve_jvmr3")
+curve_y = SubResource("Curve_r3m1k")
+curve_z = SubResource("Curve_osmmr")
+
+[sub_resource type="Curve" id="Curve_wcl71"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.49, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_mhyfe"]
+curve = SubResource("Curve_wcl71")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dfg5h"]
+resource_local_to_scene = true
+emission_shape = 3
+emission_box_extents = Vector3(18, 0.5, 18)
+direction = Vector3(1, 0, 1)
+spread = 10.0
+flatness = 0.95
+gravity = Vector3(0, -0.2, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 1.5
+scale_max = 1.5
+scale_curve = SubResource("CurveXYZTexture_o6d4c")
+turbulence_noise_strength = 0.25
+turbulence_noise_scale = 0.25
+turbulence_noise_speed = Vector3(1, 0, 0)
+turbulence_noise_speed_random = 0.1
+turbulence_influence_min = 0.01
+turbulence_influence_max = 1.0
+turbulence_initial_displacement_max = 0.1
+turbulence_influence_over_life = SubResource("CurveTexture_mhyfe")
+anim_speed_min = 1.0
+anim_speed_max = 1.2
+attractor_interaction_enabled = false
+collision_mode = 2
+collision_use_scale = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lpgk7"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("2_usuiv")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 12
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0i3mp"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_lpgk7")
+size = Vector2(0.5, 0.5)
+orientation = 2
+
+[node name="WindArea" type="Area3D"]
+collision_mask = 34
+script = ExtResource("1_7l0uu")
+wind_magnitude = 20.0
+
+[node name="WindChangeDelay" type="Timer" parent="."]
+one_shot = true
+
+[node name="WindParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.996459, 0.783729, 1.86149)
+amount = 64
+lifetime = 3.0
+randomness = 1.0
+fract_delta = false
+visibility_aabb = AABB(-11.5359, -4, -11.2268, 23.0718, 8, 22.4536)
+process_material = SubResource("ParticleProcessMaterial_dfg5h")
+draw_pass_1 = SubResource("PlaneMesh_0i3mp")
+
+[connection signal="timeout" from="WindChangeDelay" to="." method="_on_wind_change_delay_timeout"]

@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cpbagq7pfavfe"]
+
+[ext_resource type="Texture2D" uid="uid://cedkojx41c2pc" path="res://assets/items/blueball.png" id="1_o4326"]
+
+[resource]
+transparency = 4
+cull_mode = 2
+albedo_color = Color(1, 1, 1, 0.0392157)
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 2.0
+emission_operator = 1
+rim = 0.5
+rim_tint = 1.0
+backlight = Color(1, 1, 1, 1)
+backlight_texture = ExtResource("1_o4326")
+billboard_mode = 2
